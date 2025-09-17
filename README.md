@@ -1,11 +1,18 @@
-Parcial 1 – MLY0100
+# Proyecto Parcial 1 - MLY0100
+**Tema:** Predicción y Clasificación de Gasto de Clientes en un Supermercado  
+**Integrantes:** Antonio Sepúlveda
+**Fecha:** 16/09/2025
 
-Este proyecto corresponde a la Evaluación Parcial 1 del curso Machine Learning (MLY0100).
-Se desarrolla en formato Jupyter Notebook, aplicando las fases iniciales de la metodología CRISP-DM:
 
-Entendimiento del negocio
+## 1. Entendimiento del negocio
+El supermercado desea **predecir el gasto total de sus clientes** y **clasificarlos en categorías de gasto (Low, Medium, High)**.  
+Impacto:
+- Segmentar campañas de marketing.  
+- Planificar inventario y proyecciones de ingresos.  
 
-Entendimiento de los datos
+## 2. Entendimiento de los datos
+import pandas as pd
+from src.preprocessing import load_csv, missing_summary
 
 Preparación y preprocesamiento
 
