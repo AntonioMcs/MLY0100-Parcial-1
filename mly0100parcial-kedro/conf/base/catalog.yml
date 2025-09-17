@@ -1,11 +1,27 @@
+# Dataset de entrada principal
 raw_dataset:
-  type: pandas.CSVDataSet
+  type: pandas.CSVDataset
   filepath: data/01_raw/customer.csv
 
+# Datasets intermedios y procesados
 cleaned_dataset:
-  type: pandas.CSVDataSet
-  filepath: data/02_intermediate/cleaned.csv
+  type: pandas.CSVDataset
+  filepath: data/02_intermediate/cleaned_customer.csv
 
 processed_dataset:
-  type: pandas.CSVDataSet
-  filepath: data/03_processed/processed.csv
+  type: pandas.CSVDataset
+  filepath: data/03_processed/processed_customer.csv
+
+# Datasets requeridos por el pipeline reporting
+reviews:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/reviews.csv
+
+companies:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/companies.csv
+
+shuttles:
+  type: pandas.ExcelDataset
+  filepath: data/01_raw/shuttles.xlsx
+
