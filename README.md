@@ -18,7 +18,8 @@ Preparación y preprocesamiento
 
 Dataset utilizado
 
-Link del dataset base: Customer Personality Analysis
+Link del dataset base:
+Customer Personality Analysis: https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis
 
 Targets definidos:
 
