@@ -1,52 +1,50 @@
-# Parcial 1 – MLY0100
+Parcial 1 – MLY0100
 
-Este proyecto corresponde a la **Evaluación Parcial 1** del curso *Machine Learning (MLY0100)*.  
-Se desarrolla en formato **Jupyter Notebook**, aplicando las fases iniciales de la metodología **CRISP-DM**:  
-1. Entendimiento del negocio  
-2. Entendimiento de los datos  
-3. Preparación y preprocesamiento  
+Este proyecto corresponde a la Evaluación Parcial 1 del curso Machine Learning (MLY0100).
+Se desarrolla en formato Jupyter Notebook, aplicando las fases iniciales de la metodología CRISP-DM:
 
----
+Entendimiento del negocio
 
-## Dataset utilizado
+Entendimiento de los datos
 
-Link del dataset base: [Customer Personality Analysis](https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis)  
+Preparación y preprocesamiento
 
-**Targets definidos:**  
-- **Regresión:** `total_spent` (gasto total del cliente).  
-- **Clasificación:** `spend_category` (segmento del cliente: Low, Medium, High).  
+Dataset utilizado
 
----
+Link del dataset base: Customer Personality Analysis
 
-## ⚙️ Etapa de instalación
+Targets definidos:
 
-Una vez realizado el **git clone** y cargado el proyecto, deberás ejecutar los siguientes pasos para modificar y correr el código:
+Regresión: total_spent (gasto total del cliente)
 
+Clasificación: spend_category (segmento del cliente: Low, Medium, High)
+
+⚙️ Etapa de instalación
+
+Una vez clonado el repositorio y cargado el proyecto, ejecutar los siguientes pasos:
 1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/AntonioMcs/MLY0100-Parcial-1.git
-   cd MLY0100-Parcial-1
-Crear entorno virtual de Python:
 
-bash
-Copiar código
+git clone https://github.com/AntonioMcs/MLY0100-Parcial-1.git
+cd MLY0100-Parcial-1
+
+
+2. Crear entorno virtual de Python:
+
 python -m venv .venv
-Activar entorno virtual (en PowerShell - Windows):
 
-bash
-Copiar código
+3. Activar entorno virtual (en PowerShell - Windows):
+
 .\.venv\Scripts\Activate.ps1
-En caso de error, ejecutar:
 
-bash
-Copiar código
+4. En caso de error, ejecutar:
+
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-Instalar dependencias:
 
-bash
-Copiar código
+5. Instalar dependencias:
+
 pip install -r requirements.txt
-Ejecutar notebooks principales:
+
+6. Ejecutar notebooks principales:
 
 notebooks/01_EDA.ipynb
 
