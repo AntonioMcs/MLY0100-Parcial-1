@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.vscode/
+data/01_raw/
+data/02_intermediate/
+data/03_processed/
+data/08_reporting/
+*.csv
+*.joblib

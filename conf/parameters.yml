@@ -1,0 +1,13 @@
+# conf/parameters.yml
+num_cols:
+  - age
+  - visits_per_month
+  - avg_ticket
+  - total_spent
+
+cat_cols:
+  - gender
+  - membership
+
+target_regression: total_spent
+target_classification: spend_category
