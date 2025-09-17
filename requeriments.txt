@@ -5,3 +5,15 @@ seaborn
 scikit-learn
 joblib
 pyyaml
+kedro-viz
+kedro-datasets
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+jupyter
+ipython>=8.10
+jupyterlab>=3.0
+notebook
+kedro~=1.0.0
