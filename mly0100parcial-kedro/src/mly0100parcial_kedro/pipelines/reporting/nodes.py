@@ -1,23 +1,11 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
-import plotly.express as px  # noqa:  F401
 import plotly.graph_objs as go
 import seaborn as sn
 
-
-# This function uses plotly.express
-def compare_passenger_capacity_exp(preprocessed_shuttles: pd.DataFrame):
-    return (
-        preprocessed_shuttles.groupby(["shuttle_type"])
-        .mean(numeric_only=True)
-        .reset_index()
-    )
-
-
 # This function uses plotly.graph_objects
 def compare_passenger_capacity_go(preprocessed_shuttles: pd.DataFrame):
-
     data_frame = (
         preprocessed_shuttles.groupby(["shuttle_type"])
         .mean(numeric_only=True)
@@ -31,9 +19,7 @@ def compare_passenger_capacity_go(preprocessed_shuttles: pd.DataFrame):
             )
         ]
     )
-
     return fig
-
 
 def create_confusion_matrix(companies: pd.DataFrame):
     matplotlib.use('Agg')

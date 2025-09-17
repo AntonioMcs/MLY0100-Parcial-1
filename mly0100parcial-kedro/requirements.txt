@@ -8,3 +8,5 @@ scikit-learn~=1.5.1
 seaborn~=0.12.1
 kedro>=1.0.0
 pandas
+plotly>=5.0
+
