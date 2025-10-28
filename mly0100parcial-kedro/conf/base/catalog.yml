@@ -1,27 +1,60 @@
+# ============================
+# 📂 DATASETS DE ENTRADA
+# ============================
+
 # Dataset de entrada principal
 raw_dataset:
   type: pandas.CSVDataset
   filepath: data/01_raw/customer.csv
+  load_args:
+    encoding: latin1
+  save_args:
+    index: False
 
-# Datasets intermedios y procesados
+# ============================
+# 📂 DATASETS INTERMEDIOS
+# ============================
+
 cleaned_dataset:
   type: pandas.CSVDataset
   filepath: data/02_intermediate/cleaned_customer.csv
+  load_args:
+    encoding: latin1
+  save_args:
+    index: False
+
+# ============================
+# 📂 DATASETS PROCESADOS
+# ============================
 
 processed_dataset:
   type: pandas.CSVDataset
   filepath: data/03_processed/processed_customer.csv
+  load_args:
+    encoding: latin1
+  save_args:
+    index: False
 
-# Datasets requeridos por el pipeline reporting
+# ============================
+# 📂 DATASETS ADICIONALES (para el pipeline reporting)
+# ============================
+
 reviews:
   type: pandas.CSVDataset
   filepath: data/01_raw/reviews.csv
+  load_args:
+    encoding: latin1
+  save_args:
+    index: False
 
 companies:
   type: pandas.CSVDataset
   filepath: data/01_raw/companies.csv
+  load_args:
+    encoding: latin1
+  save_args:
+    index: False
 
 shuttles:
   type: pandas.ExcelDataset
   filepath: data/01_raw/shuttles.xlsx
-

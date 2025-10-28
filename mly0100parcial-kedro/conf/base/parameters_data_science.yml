@@ -1,12 +1,42 @@
+# ============================================================
+# Parámetros del pipeline de ciencia de datos (data_science)
+# ============================================================
+
 model_options:
-  test_size: 0.2
-  random_state: 3
+  # Columnas (features) que se usarán como variables independientes
   features:
-    - engines
     - passenger_capacity
     - crew
-    - d_check_complete
-    - moon_clearance_complete
-    - iata_approved
-    - company_rating
-    - review_scores_rating
+    - fuel_capacity
+    - price  # ⚠️ si "price" es el target, elimínalo de esta lista
+
+  # Variable dependiente o target (valor continuo para regresión)
+  target: price
+
+  # Porcentaje de datos usados para testeo
+  test_size: 0.2
+
+  # Semilla aleatoria para reproducibilidad
+  random_state: 42
+
+  # Lista de modelos a entrenar
+  models:
+    - LinearRegression
+    - Ridge
+    - Lasso
+    - RandomForestRegressor
+    - GradientBoostingRegressor
+
+  # Hiperparámetros básicos para cada modelo
+  hyperparameters:
+    Ridge:
+      alpha: 1.0
+    Lasso:
+      alpha: 0.1
+    RandomForestRegressor:
+      n_estimators: 100
+      random_state: 42
+    GradientBoostingRegressor:
+      n_estimators: 100
+      learning_rate: 0.1
+      random_state: 42
