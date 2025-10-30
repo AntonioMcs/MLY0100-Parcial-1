@@ -2,7 +2,6 @@
 # 📂 DATASETS DE ENTRADA
 # ============================
 
-# Dataset de entrada principal
 raw_dataset:
   type: pandas.CSVDataset
   filepath: data/01_raw/customer.csv
@@ -10,6 +9,26 @@ raw_dataset:
     encoding: latin1
   save_args:
     index: False
+
+reviews:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/reviews.csv
+  load_args:
+    encoding: latin1
+  save_args:
+    index: False
+
+companies:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/companies.csv
+  load_args:
+    encoding: latin1
+  save_args:
+    index: False
+
+shuttles:
+  type: pandas.ExcelDataset
+  filepath: data/01_raw/shuttles.xlsx
 
 # ============================
 # 📂 DATASETS INTERMEDIOS
@@ -36,25 +55,77 @@ processed_dataset:
     index: False
 
 # ============================
-# 📂 DATASETS ADICIONALES (para el pipeline reporting)
+# 📂 DATASETS PARA MODELADO (pipeline data_science)
 # ============================
 
-reviews:
+# Datos de entrada para el modelo
+model_input_table:
   type: pandas.CSVDataset
-  filepath: data/01_raw/reviews.csv
+  filepath: data/05_model_input/model_input.csv
   load_args:
     encoding: latin1
   save_args:
     index: False
 
-companies:
+# Resultados de división de datos
+X_train:
+  type: pickle.PickleDataset
+  filepath: data/06_models/X_train.pkl
+
+X_test:
+  type: pickle.PickleDataset
+  filepath: data/06_models/X_test.pkl
+
+y_train:
+  type: pickle.PickleDataset
+  filepath: data/06_models/y_train.pkl
+
+y_test:
+  type: pickle.PickleDataset
+  filepath: data/06_models/y_test.pkl
+
+# Modelos entrenados
+trained_models:
+  type: pickle.PickleDataset
+  filepath: data/06_models/trained_models.pkl
+
+# Evaluaciones de los modelos
+evaluation_results:
   type: pandas.CSVDataset
-  filepath: data/01_raw/companies.csv
+  filepath: data/07_reporting/evaluation_results.csv
+  save_args:
+    index: False
+
+# Modelo seleccionado
+best_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/best_model.pkl
+
+# ============================
+# 📂 DATASET DE DIABETES
+# ============================
+
+diabetes_raw:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/diabetes.csv
   load_args:
     encoding: latin1
   save_args:
     index: False
 
-shuttles:
-  type: pandas.ExcelDataset
-  filepath: data/01_raw/shuttles.xlsx
+# Dataset intermedio (limpio)
+diabetes_cleaned:
+  type: pandas.CSVDataset
+  filepath: data/02_intermediate/diabetes_cleaned.csv
+  save_args:
+    index: False
+
+# Dataset de entrenamiento/prueba
+diabetes_split:
+  type: MemoryDataset
+
+# Modelos entrenados y métricas
+diabetes_trained_model:
+  type: MemoryDataset
+diabetes_evaluation_results:
+  type: MemoryDataset
