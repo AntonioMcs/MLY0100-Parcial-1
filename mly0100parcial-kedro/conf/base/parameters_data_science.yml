@@ -2,7 +2,7 @@
 # Parámetros del pipeline de ciencia de datos (data_science)
 # ============================================================
 
-model_options:
+data_science_model_options:
   # Columnas (features) que se usarán como variables independientes
   features:
     - passenger_capacity
@@ -40,3 +40,19 @@ model_options:
       n_estimators: 100
       learning_rate: 0.1
       random_state: 42
+
+# ============================
+# ⚙️ PARÁMETROS DE DIABETES
+# ============================
+
+diabetes_model_options:
+  test_size: 0.2
+  random_state: 42
+  target_column: Diabetes_binary
+  models:
+    logistic_regression:
+      type: logistic
+    random_forest:
+      type: random_forest
+      n_estimators: 100
+      max_depth: 5
