@@ -127,5 +127,11 @@ diabetes_split:
 # Modelos entrenados y métricas
 diabetes_trained_model:
   type: MemoryDataset
+
+# Modelos entrenados
 diabetes_evaluation_results:
-  type: MemoryDataset
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/diabetes_evaluation_results.csv
+  save_args:
+    index: False
+

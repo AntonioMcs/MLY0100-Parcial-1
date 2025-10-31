@@ -81,3 +81,46 @@ def evaluate_diabetes_model(model, X_test: pd.DataFrame, y_test: pd.Series) -> p
     print(f"Accuracy: {acc:.4f} | MSE: {mse:.4f}")
 
     return results
+
+# ==========================
+# 📉 5. Visualización de resultados
+# ==========================
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+
+def visualize_diabetes_results(model, X_test, y_test):
+    """Genera gráficos visuales del modelo: matriz de confusión y métricas."""
+    y_pred = model.predict(X_test)
+    cm = confusion_matrix(y_test, y_pred)
+
+    # === Matriz de Confusión ===
+    plt.figure(figsize=(5, 4))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+    plt.xlabel("Predicho")
+    plt.ylabel("Real")
+    plt.title("Matriz de Confusión - Diabetes")
+    plt.tight_layout()
+    plt.savefig("data/08_reporting/confusion_matrix_diabetes.png")
+    plt.close()
+
+    # === Gráfico de métricas ===
+    from sklearn.metrics import classification_report, accuracy_score
+    report = classification_report(y_test, y_pred, output_dict=True)
+    metrics = {
+        "Accuracy": accuracy_score(y_test, y_pred),
+        "Precision_0": report.get("0", {}).get("precision", 0),
+        "Recall_0": report.get("0", {}).get("recall", 0),
+        "Precision_1": report.get("1", {}).get("precision", 0),
+        "Recall_1": report.get("1", {}).get("recall", 0),
+    }
+
+    plt.figure(figsize=(6, 4))
+    plt.bar(metrics.keys(), metrics.values(), color="skyblue")
+    plt.title("Métricas del modelo de Diabetes")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig("data/08_reporting/metrics_diabetes.png")
+    plt.close()
+
+    print("📊 Gráficos generados en data/08_reporting/")
