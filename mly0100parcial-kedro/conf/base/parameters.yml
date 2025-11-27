@@ -1,3 +1,13 @@
 model_options:
   test_size: 0.2
   random_state: 42
+  target: Outcome
+  features:
+    - Pregnancies
+    - Glucose
+    - BloodPressure
+    - SkinThickness
+    - Insulin
+    - BMI
+    - DiabetesPedigreeFunction
+    - Age

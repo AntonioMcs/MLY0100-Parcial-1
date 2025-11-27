@@ -53,9 +53,8 @@ namespaces = false
 package_name = "mly0100parcial_kedro"
 project_name = "mly0100parcial_kedro"
 kedro_init_version = "1.0.0"
-tools = "['None']"
-example_pipeline = "False"
-source_dir = "src"
+
+
 
 [tool.pytest.ini_options]
 addopts = """

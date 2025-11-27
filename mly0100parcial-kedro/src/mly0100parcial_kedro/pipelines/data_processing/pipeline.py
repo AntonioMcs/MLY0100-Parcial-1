@@ -1,28 +1,21 @@
-from kedro.pipeline import Node, Pipeline
-
-from .nodes import create_model_input_table, preprocess_companies, preprocess_shuttles
+from kedro.pipeline import Pipeline, node
+from .nodes import clean_diabetes_data, impute_diabetes_data
 
 
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline(
         [
-            Node(
-                func=preprocess_companies,
-                inputs="companies",
-                outputs="preprocessed_companies",
-                name="preprocess_companies_node",
+            node(
+                func=clean_diabetes_data,
+                inputs="diabetes_raw",
+                outputs="diabetes_clean",
+                name="clean_diabetes_data_node",
             ),
-            Node(
-                func=preprocess_shuttles,
-                inputs="shuttles",
-                outputs="preprocessed_shuttles",
-                name="preprocess_shuttles_node",
-            ),
-            Node(
-                func=create_model_input_table,
-                inputs=["preprocessed_shuttles", "preprocessed_companies", "reviews"],
-                outputs="model_input_table",
-                name="create_model_input_table_node",
+            node(
+                func=impute_diabetes_data,
+                inputs="diabetes_clean",
+                outputs="diabetes_imputed",
+                name="impute_diabetes_data_node",
             ),
         ]
     )

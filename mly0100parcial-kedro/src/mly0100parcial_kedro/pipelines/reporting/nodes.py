@@ -1,41 +1,38 @@
-import matplotlib
-import matplotlib.pyplot as plt
 import pandas as pd
-import plotly.graph_objs as go
-import seaborn as sn
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# This function uses plotly.graph_objects
-def compare_passenger_capacity_go(preprocessed_shuttles: pd.DataFrame):
-    data_frame = (
-        preprocessed_shuttles.groupby(["shuttle_type"])
-        .mean(numeric_only=True)
-        .reset_index()
-    )
-    fig = go.Figure(
-        [
-            go.Bar(
-                x=data_frame["shuttle_type"],
-                y=data_frame["passenger_capacity"],
-            )
-        ]
-    )
+
+def plot_target_distribution(data: pd.DataFrame):
+    """
+    Distribución de pacientes con y sin diabetes.
+    """
+    fig, ax = plt.subplots()
+    data["Outcome"].value_counts().sort_index().plot(kind="bar", ax=ax)
+    ax.set_xlabel("Outcome (0 = No diabetes, 1 = Diabetes)")
+    ax.set_ylabel("Cantidad de pacientes")
+    ax.set_title("Distribución de la variable objetivo")
     return fig
 
-def create_confusion_matrix(companies: pd.DataFrame):
-    matplotlib.use('Agg')
 
-    actuals = [0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1]
-    predicted = [1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1]
-    data = {"y_Actual": actuals, "y_Predicted": predicted}
-    df = pd.DataFrame(data, columns=["y_Actual", "y_Predicted"])
+def plot_correlation_matrix(data: pd.DataFrame, parameters: dict):
+    features = parameters["features"]
 
-    confusion_matrix = pd.crosstab(
-        df["y_Actual"], df["y_Predicted"], rownames=["Actual"], colnames=["Predicted"]
-    )
-
+    """
+    Mapa de calor de correlaciones entre features y el target.
+    """
     fig, ax = plt.subplots(figsize=(8, 6))
-    sn.heatmap(confusion_matrix, annot=True, fmt='d', cmap='Blues', ax=ax)
-    ax.set_title('Confusion Matrix')
-    plt.tight_layout()
+    corr = data[features + ["Outcome"]].corr()
+    sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
+    ax.set_title("Matriz de correlación (diabetes)")
+    return fig
 
+
+def plot_bmi_vs_glucose(data: pd.DataFrame):
+    """
+    Relación BMI vs Glucose, coloreado por Outcome.
+    """
+    fig, ax = plt.subplots()
+    sns.scatterplot(data=data, x="BMI", y="Glucose", hue="Outcome", ax=ax)
+    ax.set_title("Relación Glucosa vs BMI según Outcome")
     return fig

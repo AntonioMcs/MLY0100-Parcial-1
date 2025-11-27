@@ -1,28 +1,52 @@
+# ==============================================
+# PROYECTO: MLY0100 - PIPELINE DIABETES
+# Integración: Kedro + Airflow (+ Docker Ready)
+# ==============================================
 
+# --------------------------
+# Núcleo de Kedro
+# --------------------------
 kedro~=1.0.0
-kedro[pandas]
-kedro-datasets
+kedro-datasets[pandas]
 kedro-viz
+kedro-airflow
 
-
+# --------------------------
+# Ciencia de Datos
+# --------------------------
 pandas
 numpy
 openpyxl
 pyyaml
 joblib
 python-dotenv
-
-
-matplotlib
-seaborn
-
-
 scikit-learn
 
+# --------------------------
+# Visualización
+# --------------------------
+matplotlib
+seaborn
+plotly>=5.0
+plotly-express
 
+# --------------------------
+# Notebooks / Entorno interactivo
+# --------------------------
 jupyter
 notebook
 jupyterlab>=3.0
 ipython>=8.10
+ipykernel
 
-plotly>=5.0
+# --------------------------
+# Airflow y orquestación
+# --------------------------
+apache-airflow==2.8.1
+sqlalchemy<2.0
+werkzeug<3.0  # evita conflictos con Flask en Airflow
+
+# --------------------------
+# Docker 
+# --------------------------
+docker
