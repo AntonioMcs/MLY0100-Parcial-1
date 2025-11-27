@@ -1,106 +1,65 @@
-# Proyecto Parcial 1 - MLY0100
-**Tema:** Predicción y Clasificación de Gasto de Clientes en un Supermercado  
-**Integrantes:** Antonio Sepúlveda
-**Fecha:** 16/09/2025
+# 📘 Proyecto Parcial — MLY0100  
+## Predicción y Evaluación de Riesgo de Diabetes usando Kedro, Docker y Airflow  
+**Autor:** Antonio Sepúlveda  
+**Fecha:** 2025  
+
+---
+
+# 🩺 1. Entendimiento del Negocio
+
+El objetivo del proyecto es desarrollar un **pipeline automatizado de Machine Learning** para:
+
+### ✔️ Clasificar pacientes según la probabilidad de tener diabetes  
+Usando la variable objetivo **Outcome**:  
+- **0 = No diabetes**  
+- **1 = Diabetes**
+
+### ✔️ Implementar un flujo completo usando Kedro:
+- Limpieza y validación de datos  
+- División Train/Test  
+- Entrenamiento de modelos  
+- Evaluación automática  
+- Reportes y visualizaciones  
+- Ejecución modular, escalable y reproducible  
+
+### 🔍 Beneficios del sistema:
+- Apoyar diagnósticos tempranos  
+- Priorizar pacientes de mayor riesgo  
+- Identificar factores clínicos relevantes  
+- Automatizar experimentación y retraining  
+
+---
+
+# 📊 2. Entendimiento de los Datos
+
+Se utiliza el **PIMA Diabetes Dataset**, ubicado en:
+
+data/01_raw/diabetes.csv
 
 
-## 1. Entendimiento del negocio
-El supermercado desea **predecir el gasto total de sus clientes** y **clasificarlos en categorías de gasto (Low, Medium, High)**.  
-Impacto:
-- Segmentar campañas de marketing.  
-- Planificar inventario y proyecciones de ingresos.  
+### 🔢 Variables principales:
+- Pregnancies  
+- Glucose  
+- BloodPressure  
+- SkinThickness  
+- Insulin  
+- BMI  
+- DiabetesPedigreeFunction  
+- Age  
+- Outcome (objetivo)
 
-## 2. Entendimiento de los datos
-import pandas as pd
-from src.preprocessing import load_csv, missing_summary
+### ✔️ Resultados generados por el pipeline:
+- Datos limpios → `diabetes_cleaned`
+- Split → `X_train`, `X_test`, `y_train`, `y_test`
+- Modelo entrenado → `diabetes_trained_model`
+- Métricas CSV → `diabetes_evaluation_results`
+- Visualizaciones → `data/08_reporting/`
 
-Preparación y preprocesamiento
+---
 
-Dataset utilizado
-
-Link del dataset base:
-Customer Personality Analysis: https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis
-
-Targets definidos:
-
-Regresión: total_spent (gasto total del cliente)
-
-Clasificación: spend_category (segmento del cliente: Low, Medium, High)
-
-⚙️ Etapa de instalación
-
-Una vez clonado el repositorio y cargado el proyecto, ejecutar los siguientes pasos:
-1. Clonar el repositorio:
-
+## ⚙️ 3. Instalación y Configuración
+##
+## 1. Clonar repositorio
+```sh
 git clone https://github.com/AntonioMcs/MLY0100-Parcial-1.git
-cd MLY0100-Parcial-1
-
-
-2. Crear entorno virtual de Python:
-
-python -m venv .venv
-
-3. Activar entorno virtual (en PowerShell - Windows):
-
-.\.venv\Scripts\Activate.ps1
-
-4. En caso de error, ejecutar:
-
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-5. Instalar dependencias:
-
-pip install -r requirements.txt
-
-6. Ejecutar notebooks principales:
-
-notebooks/01_EDA.ipynb
-
-notebooks/02_Preprocesamiento.ipynb
-
-🛠️ Framework y Herramientas
-Lenguaje: Python 3.11.9
-
-IDE: VS Code
-
-Control de versiones: Git
-
-Notebooks: Jupyter
-
-Soporte estructural: configuración de parámetros en conf/
-
-📚 Librerías utilizadas
-Instalar en el entorno virtual con pip install:
-
-pandas → manipulación de datos
-
-numpy → cálculos numéricos
-
-matplotlib → visualización básica
-
-seaborn → visualización estadística
-
-scikit-learn → preprocesamiento, encoding y escalado
-
-joblib → guardar transformadores
-
-📂 Estructura de archivos
-data/01_raw/ → dataset original en CSV
-
-data/02_intermediate/ → datos intermedios con limpieza de nulos y outliers
-
-data/03_processed/ → dataset final con encoding y escalado
-
-data/08_reporting/ → figuras y reportes exportados
-
-notebooks/ → Jupyter Notebooks (EDA y Preprocesamiento)
-
-src/ → scripts Python con funciones auxiliares
-
-preprocessing.py → imputación, limpieza, outliers
-
-visualization.py → funciones de gráficos
-
-features.py → creación de variables derivadas
-
-conf/parameters.yml → parámetros configurables (columnas numéricas, categóricas, thresholds)
+cd MLY0100-Parcial-1/mly0100parcial-kedro
