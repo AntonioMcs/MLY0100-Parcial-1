@@ -1,6 +1,6 @@
 # ==============================================
 # PROYECTO: MLY0100 - PIPELINE DIABETES
-# Integración: Kedro + Airflow (+ Docker Ready)
+# Integración: Kedro + Airflow 
 # ==============================================
 
 # --------------------------
