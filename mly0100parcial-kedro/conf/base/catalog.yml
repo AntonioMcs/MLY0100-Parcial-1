@@ -1,43 +1,67 @@
+# -----------------------------
+#   DATASETS RAW
+# -----------------------------
 diabetes_raw:
   type: pandas.CSVDataset
-  filepath: "data/01_raw/diabetes.csv"
+  filepath: data/01_raw/diabetes.csv
   load_args:
     encoding: latin1
   save_args:
     index: False
 
+# -----------------------------
+#   DATASETS INTERMEDIATE
+# -----------------------------
 diabetes_cleaned:
   type: pandas.CSVDataset
-  filepath: "data/02_intermediate/diabetes_cleaned.csv"
+  filepath: data/02_intermediate/diabetes_cleaned.csv
   save_args:
     index: False
 
+# -----------------------------
+#   MODEL INPUTS (05_model_input)
+#   *Solo si los usas.*
+# -----------------------------
 X_train:
   type: pickle.PickleDataset
-  filepath: "data/06_models/X_train.pkl"
+  filepath: data/06_models/X_train.pkl
 
 X_test:
   type: pickle.PickleDataset
-  filepath: "data/06_models/X_test.pkl"
+  filepath: data/06_models/X_test.pkl
 
 y_train:
   type: pickle.PickleDataset
-  filepath: "data/06_models/y_train.pkl"
+  filepath: data/06_models/y_train.pkl
 
 y_test:
   type: pickle.PickleDataset
-  filepath: "data/06_models/y_test.pkl"
+  filepath: data/06_models/y_test.pkl
 
+# -----------------------------
+#   MODELOS ENTRENADOS
+# -----------------------------
 trained_models:
   type: pickle.PickleDataset
-  filepath: "data/06_models/trained_models.pkl"
+  filepath: data/06_models/trained_models.pkl
 
 best_model:
   type: pickle.PickleDataset
-  filepath: "data/06_models/best_model.pkl"
+  filepath: data/06_models/best_model.pkl
 
+# -----------------------------
+#   REPORTES / OUTPUTS
+# -----------------------------
 diabetes_evaluation_results:
   type: pandas.CSVDataset
-  filepath: "data/08_reporting/diabetes_evaluation_results.csv"
+  filepath: data/08_reporting/diabetes_evaluation_results.csv
   save_args:
     index: False
+
+diabetes_scaled:
+  type: pandas.ParquetDataset
+  filepath: data/07_model_output/diabetes_scaled.parquet
+
+diabetes_clusters:
+  type: pandas.ParquetDataset
+  filepath: data/07_model_output/diabetes_clusters.parquet

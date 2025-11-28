@@ -11,3 +11,6 @@ model_options:
     - BMI
     - DiabetesPedigreeFunction
     - Age
+
+kmeans:
+  n_clusters: 3
