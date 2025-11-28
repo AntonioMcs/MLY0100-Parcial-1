@@ -65,3 +65,9 @@ diabetes_scaled:
 diabetes_clusters:
   type: pandas.ParquetDataset
   filepath: data/07_model_output/diabetes_clusters.parquet
+
+model_input_table:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/model_input_table.csv
+  load_args:
+    encoding: utf-8

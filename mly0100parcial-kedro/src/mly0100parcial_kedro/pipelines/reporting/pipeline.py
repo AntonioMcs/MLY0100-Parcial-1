@@ -1,32 +1,30 @@
 from kedro.pipeline import Pipeline, node
-
 from .nodes import (
-    plot_target_distribution,
-    plot_correlation_matrix,
-    plot_bmi_vs_glucose,
+    load_evaluation_results,
+    generate_plots,
+    generate_report,
 )
 
-
-def create_pipeline(**kwargs) -> Pipeline:
+def create_pipeline(**kwargs):
     return Pipeline(
         [
             node(
-                func=plot_target_distribution,
-                inputs="model_input_table",
-                outputs="target_distribution_plot",
-                name="plot_target_distribution_node",
+                func=load_evaluation_results,
+                inputs="diabetes_evaluation_results",
+                outputs="evaluation_df",
+                name="load_results"
             ),
             node(
-                func=plot_correlation_matrix,
-                inputs=["model_input_table", "params:model_options"],
-                outputs="correlation_matrix_plot",
-                name="plot_correlation_matrix_node",
+                func=generate_plots,
+                inputs=["evaluation_df"],
+                outputs="diabetes_plots",
+                name="generate_plots"
             ),
             node(
-                func=plot_bmi_vs_glucose,
-                inputs="model_input_table",
-                outputs="bmi_glucose_scatter_plot",
-                name="plot_bmi_vs_glucose_node",
+                func=generate_report,
+                inputs=["evaluation_df", "diabetes_plots"],
+                outputs=None,
+                name="generate_pdf_report"
             ),
         ]
     )

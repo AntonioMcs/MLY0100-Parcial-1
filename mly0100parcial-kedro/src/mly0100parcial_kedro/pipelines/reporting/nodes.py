@@ -1,38 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
+
+def load_evaluation_results(df: pd.DataFrame) -> pd.DataFrame:
+    return df
 
 
-def plot_target_distribution(data: pd.DataFrame):
-    """
-    Distribución de pacientes con y sin diabetes.
-    """
-    fig, ax = plt.subplots()
-    data["Outcome"].value_counts().sort_index().plot(kind="bar", ax=ax)
-    ax.set_xlabel("Outcome (0 = No diabetes, 1 = Diabetes)")
-    ax.set_ylabel("Cantidad de pacientes")
-    ax.set_title("Distribución de la variable objetivo")
-    return fig
+def generate_plots(df: pd.DataFrame):
+    os.makedirs("data/08_reporting", exist_ok=True)
+
+    plt.figure(figsize=(6,4))
+    sns.barplot(data=df)
+    plt.title("Métricas del Modelo Diabetes")
+    plt.tight_layout()
+    plt.savefig("data/08_reporting/metrics_diabetes.png")
+    plt.close()
+
+    return "data/08_reporting/metrics_diabetes.png"
 
 
-def plot_correlation_matrix(data: pd.DataFrame, parameters: dict):
-    features = parameters["features"]
-
-    """
-    Mapa de calor de correlaciones entre features y el target.
-    """
-    fig, ax = plt.subplots(figsize=(8, 6))
-    corr = data[features + ["Outcome"]].corr()
-    sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
-    ax.set_title("Matriz de correlación (diabetes)")
-    return fig
-
-
-def plot_bmi_vs_glucose(data: pd.DataFrame):
-    """
-    Relación BMI vs Glucose, coloreado por Outcome.
-    """
-    fig, ax = plt.subplots()
-    sns.scatterplot(data=data, x="BMI", y="Glucose", hue="Outcome", ax=ax)
-    ax.set_title("Relación Glucosa vs BMI según Outcome")
-    return fig
+def generate_report(df: pd.DataFrame, plots_path: str):
+    print("\n📄 Reporte generado correctamente (versión simplificada).")
+    print(f"Métricas cargadas: \n{df}")
+    print(f"Gráfico generado en: {plots_path}")
