@@ -62,8 +62,7 @@ data/01_raw/diabetes.csv
 - `diabetes`: limpieza, split, entrenamiento y evaluación principal.
 - `clustering`: escalado + KMeans para segmentación clínica.
 - `reporting`: genera gráficos y visualizaciones a partir de las métricas.
-- `unsupervised_learning`: PCA + clustering + detección de anomalías inspirado en el proyecto FIFA pero enfocado en diabetes.
-
+- `unsupervised_learning`: PCA + clustering + detección de anomalías 
 ---
 
 ## ⚙️ 3. Instalación y Configuración
