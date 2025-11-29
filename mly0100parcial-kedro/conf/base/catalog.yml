@@ -66,6 +66,40 @@ diabetes_clusters:
   type: pandas.ParquetDataset
   filepath: data/07_model_output/diabetes_clusters.parquet
 
+diabetes_unsupervised_features:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/diabetes_unsupervised_features.parquet
+
+diabetes_unsupervised_scaled:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/diabetes_unsupervised_scaled.parquet
+
+diabetes_pca_components:
+  type: pandas.ParquetDataset
+  filepath: data/05_model_input/diabetes_pca_components.parquet
+
+diabetes_pca_variance:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/diabetes_pca_variance.csv
+  save_args:
+    index: False
+
+diabetes_cluster_assignments:
+  type: pandas.ParquetDataset
+  filepath: data/07_model_output/diabetes_cluster_assignments.parquet
+
+diabetes_cluster_centroids:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/diabetes_cluster_centroids.csv
+  save_args:
+    index: False
+
+diabetes_anomaly_scores:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/diabetes_anomaly_scores.csv
+  save_args:
+    index: False
+
 model_input_table:
   type: pandas.CSVDataset
   filepath: data/05_model_input/model_input_table.csv

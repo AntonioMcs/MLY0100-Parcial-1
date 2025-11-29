@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  kedro:
+    build: .
+    image: mly0100parcial-kedro:latest
+    environment:
+      KEDRO_DISABLE_TELEMETRY: "yes"
+    volumes:
+      - ./data:/app/data
+      - ./conf/local:/app/conf/local
+    working_dir: /app
+    tty: true
+    stdin_open: true
+

@@ -35,6 +35,54 @@ You can run your Kedro project with:
 kedro run
 ```
 
+## 🚢 Run with Docker
+
+The repository now includes a `Dockerfile` and `docker-compose.yml` so you can run Kedro without managing Python locally.
+
+1. Move into the project folder and build the image:
+   ```bash
+   cd mly0100parcial-kedro
+   docker compose build
+   ```
+2. Execute any Kedro command inside the container (data and `conf/local` are mounted as volumes):
+   ```bash
+   # Run full pipeline
+   docker compose run --rm kedro kedro run
+
+   # Run a specific pipeline
+   docker compose run --rm kedro kedro run --pipeline diabetes
+
+   # Open a shell inside the container
+   docker compose run --rm kedro bash
+   ```
+3. To launch Kedro-Viz expose the port when running:
+   ```bash
+   docker compose run --rm -p 4141:4141 kedro kedro viz --host 0.0.0.0 --port 4141
+   ```
+
+## ☁️ Run with Airflow
+
+You can orchestrate the Kedro pipelines from Apache Airflow using the DAG provided in `airflow_dags/diabetes_kedro_dag.py`.
+
+1. Copy (or mount) the entire repo under your Airflow `dags/` directory. By default, the DAG expects the project to be in `/opt/airflow/dags/mly0100parcial-kedro`.
+2. Install Kedro and project dependencies inside the Airflow environment, e.g.:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Set the environment variable `KEDRO_PROJECT_PATH` if you colocate the project elsewhere:
+   ```bash
+   export KEDRO_PROJECT_PATH=/path/to/mly0100parcial-kedro
+   ```
+4. Start Airflow:
+   ```bash
+   airflow db init
+   airflow webserver -p 8080
+   airflow scheduler
+   ```
+5. In the Airflow UI, enable the DAG `kedro_diabetes_pipeline`. The DAG runs `kedro run --pipeline diabetes`, then `unsupervised_learning` and `reporting`. You can also trigger it manually.
+
+This setup lets you reuse the same Kedro commands inside Airflow, keeping observability (logs, retries, scheduling) in one place.
+
 ## How to test your Kedro project
 
 Have a look at the files `tests/test_run.py` and `tests/pipelines/data_science/test_pipeline.py` for instructions on how to write your tests. Run the tests as follows:

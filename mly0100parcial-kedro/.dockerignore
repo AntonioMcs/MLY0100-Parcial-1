@@ -1,0 +1,18 @@
+.venv*
+__pycache__
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.kedro-telemetry
+
+*.log
+.DS_Store
+
+# Evitamos copiar los datos reales; se montan como volumen
+data/
+
+# Archivos de IDE
+.vscode
+.idea
+.cursor
+
