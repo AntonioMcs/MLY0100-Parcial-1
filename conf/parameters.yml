@@ -1,13 +1,37 @@
 # conf/parameters.yml
+# Parámetros configurables para el proyecto Brazilian E-commerce
+# NOTA: Ajustar estos parámetros según los datasets reales cargados
+
+# Columnas numéricas (ajustar según dataset real)
 num_cols:
-  - age
-  - visits_per_month
-  - avg_ticket
-  - total_spent
+  - price
+  - freight_value
+  - payment_value
+  - order_total_value
+  # Agregar más columnas numéricas según el dataset
 
+# Columnas categóricas (ajustar según dataset real)
 cat_cols:
-  - gender
-  - membership
+  - order_status
+  - payment_type
+  - customer_state
+  - product_category
+  # Agregar más columnas categóricas según el dataset
 
-target_regression: total_spent
-target_classification: spend_category
+# Targets definidos
+target_regression: order_total_value  # Valor total del pedido (ajustar según dataset)
+target_classification: order_status_category  # Categoría de estado del pedido (ajustar según dataset)
+
+# Parámetros de preprocesamiento
+preprocessing:
+  # Umbral para considerar outliers significativos (%)
+  outlier_threshold: 1.0
+  
+  # Umbral para eliminar columnas con muchos missing values (%)
+  missing_threshold: 40.0
+  
+  # Umbral para considerar categorías raras (%)
+  rare_category_threshold: 1.0
+  
+  # Método de escalado por defecto
+  default_scaler: "standard"  # "standard" o "minmax"

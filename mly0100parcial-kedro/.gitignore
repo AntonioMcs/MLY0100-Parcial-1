@@ -22,6 +22,10 @@ data/**
 !data/01_raw/reviews.csv
 !data/01_raw/shuttles.xlsx
 
+# also keep Brazilian E-commerce datasets
+!data/01_raw/olist_*.csv
+!data/01_raw/product_category_name_translation.csv
+
 # ignore kedro-viz metadata
 .viz
 
