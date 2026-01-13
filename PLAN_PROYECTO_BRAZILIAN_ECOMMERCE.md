@@ -1,5 +1,4 @@
 # Plan de Proyecto: Brazilian E-commerce
-## Adaptación del Proyecto según Rúbrica MLY0100
 
 ---
 
@@ -10,7 +9,6 @@
 
 ---
 
-## 🎯 Cobertura de la Rúbrica
 
 ### ✅ Criterio 1: CRISP-DM en Jupyter Notebook (10%)
 - **Fase 1: Business Understanding** - Entender el contexto del e-commerce brasileño
@@ -167,7 +165,7 @@ MLY0100-Parcial-1/
 
 ---
 
-## 📝 Checklist de Entrega (Fases 1-3 CRISP-DM)
+## (Fases 1-3 CRISP-DM)
 
 ### Business Understanding
 - [ ] Contexto del negocio documentado
@@ -194,17 +192,6 @@ MLY0100-Parcial-1/
 - [ ] Justificaciones de técnicas utilizadas
 - [ ] Comparación antes/después del preprocesamiento
 
----
-
-## 🚀 Próximos Pasos
-
-1. **Esperar dataset** de brazilian-ecommerce
-2. **Cargar y explorar** los datos disponibles
-3. **Ajustar targets** según los datos reales
-4. **Implementar** el notebook siguiendo este plan
-5. **Validar** que se cumplan todos los criterios de la rúbrica
-
----
 
 ## 📚 Referencias
 
