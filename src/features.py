@@ -22,6 +22,7 @@ def age_group(df, col='age'):
 def create_ecommerce_features(df):
     """
     Crea variables derivadas específicas para e-commerce.
+    Optimizado para datasets grandes.
     
     Parámetros:
     -----------
@@ -35,60 +36,86 @@ def create_ecommerce_features(df):
     """
     df = df.copy()
     
-    # Variables de tiempo (si existen columnas de fecha)
-    date_columns = [col for col in df.columns if 'date' in col.lower() or 'time' in col.lower()]
+    # Variables de tiempo - Solo procesar la columna principal de fecha (order_purchase_timestamp)
+    # Esto evita crear demasiadas columnas y acelera el procesamiento
+    main_date_col = None
+    date_candidates = ['order_purchase_timestamp', 'order_purchase_date', 'purchase_date']
     
-    for col in date_columns:
+    for candidate in date_candidates:
+        if candidate in df.columns:
+            main_date_col = candidate
+            break
+    
+    # Si no encontramos, buscar cualquier columna con 'purchase' y 'timestamp'
+    if main_date_col is None:
+        for col in df.columns:
+            if 'purchase' in col.lower() and ('timestamp' in col.lower() or 'date' in col.lower()):
+                main_date_col = col
+                break
+    
+    if main_date_col:
         try:
-            # Convertir a datetime si es posible
-            df[col] = pd.to_datetime(df[col], errors='coerce')
+            # Convertir a datetime solo una vez
+            df[main_date_col] = pd.to_datetime(df[main_date_col], errors='coerce')
             
-            # Extraer componentes de fecha
-            col_base = col.replace('_date', '').replace('_time', '')
-            
-            if df[col].notna().sum() > 0:  # Solo si hay fechas válidas
-                df[f'{col_base}_year'] = df[col].dt.year
-                df[f'{col_base}_month'] = df[col].dt.month
-                df[f'{col_base}_day'] = df[col].dt.day
-                df[f'{col_base}_dayofweek'] = df[col].dt.dayofweek
-                df[f'{col_base}_is_weekend'] = df[col].dt.dayofweek.isin([5, 6]).astype(int)
-                df[f'{col_base}_quarter'] = df[col].dt.quarter
-        except:
-            pass
+            if df[main_date_col].notna().sum() > 0:
+                # Extraer solo las características más útiles
+                df['order_purchase_year'] = df[main_date_col].dt.year
+                df['order_purchase_month'] = df[main_date_col].dt.month
+                df['order_purchase_dayofweek'] = df[main_date_col].dt.dayofweek
+                df['order_purchase_is_weekend'] = df[main_date_col].dt.dayofweek.isin([5, 6]).astype(int)
+                df['order_purchase_quarter'] = df[main_date_col].dt.quarter
+        except Exception as e:
+            print(f"Advertencia: No se pudieron procesar fechas: {e}")
     
-    # Variables de valor (si existen columnas de precio/valor)
-    price_columns = [col for col in df.columns if 'price' in col.lower() or 'value' in col.lower() or 'total' in col.lower()]
-    
-    for col in price_columns:
-        if df[col].dtype in [np.float64, np.int64]:
-            # Valor promedio por transacción (si hay columna de cantidad)
-            qty_cols = [c for c in df.columns if 'qty' in c.lower() or 'quantity' in c.lower()]
-            if qty_cols:
-                qty_col = qty_cols[0]
-                if qty_col in df.columns and (df[qty_col] > 0).any():
-                    df[f'{col}_per_unit'] = df[col] / (df[qty_col] + 1e-6)  # Evitar división por cero
+    # Crear variable order_total_value (suma de price + freight_value)
+    if 'price' in df.columns and 'freight_value' in df.columns:
+        df['order_total_value'] = df['price'] + df['freight_value']
     
     # Variables categóricas de segmentación
     # Crear segmentos de valor si existe una columna de valor total
     value_cols = [col for col in df.columns if 'total' in col.lower() and 'value' in col.lower()]
     if value_cols:
         value_col = value_cols[0]
-        if value_col in df.columns:
-            # Segmentar en terciles
-            df[f'{value_col}_segment'] = pd.qcut(
-                df[value_col].rank(method='first'), 
-                q=3, 
-                labels=['Low', 'Medium', 'High'],
-                duplicates='drop'
-            )
+        if value_col in df.columns and df[value_col].notna().sum() > 0:
+            try:
+                # Segmentar en terciles (solo si hay suficientes valores únicos)
+                if df[value_col].nunique() >= 3:
+                    df[f'{value_col}_segment'] = pd.qcut(
+                        df[value_col].rank(method='first'), 
+                        q=3, 
+                        labels=['Low', 'Medium', 'High'],
+                        duplicates='drop'
+                    )
+            except Exception:
+                # Si falla, crear segmentos manuales
+                q33 = df[value_col].quantile(0.33)
+                q66 = df[value_col].quantile(0.66)
+                df[f'{value_col}_segment'] = pd.cut(
+                    df[value_col],
+                    bins=[-np.inf, q33, q66, np.inf],
+                    labels=['Low', 'Medium', 'High']
+                )
     
-    # Variables de frecuencia (si hay IDs de cliente)
-    customer_id_cols = [col for col in df.columns if 'customer' in col.lower() and 'id' in col.lower()]
+    # Variables de frecuencia - Optimizado para datasets grandes
+    customer_id_cols = [col for col in df.columns if 'customer' in col.lower() and 'id' in col.lower() and 'unique' not in col.lower()]
     if customer_id_cols:
         customer_id_col = customer_id_cols[0]
         if customer_id_col in df.columns:
-            # Contar frecuencia de pedidos por cliente
-            customer_counts = df[customer_id_col].value_counts()
+            # Usar transform para calcular frecuencia de forma más eficiente
+            customer_counts = df.groupby(customer_id_col).size()
             df['customer_order_frequency'] = df[customer_id_col].map(customer_counts)
+            df['customer_order_frequency'] = df['customer_order_frequency'].fillna(0).astype(int)
+    
+    # Crear variable de tiempo de entrega (si hay fechas de entrega)
+    if 'order_delivered_customer_date' in df.columns and main_date_col:
+        try:
+            df['order_delivered_customer_date'] = pd.to_datetime(df['order_delivered_customer_date'], errors='coerce')
+            if df['order_delivered_customer_date'].notna().sum() > 0 and df[main_date_col].notna().sum() > 0:
+                df['days_to_delivery'] = (df['order_delivered_customer_date'] - df[main_date_col]).dt.days
+                # Reemplazar valores negativos o muy grandes con NaN
+                df['days_to_delivery'] = df['days_to_delivery'].clip(lower=0, upper=365)
+        except Exception:
+            pass
     
     return df

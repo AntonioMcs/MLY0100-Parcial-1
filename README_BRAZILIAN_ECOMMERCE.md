@@ -50,7 +50,7 @@ Este proyecto cumple con los 10 criterios de la rúbrica:
 - `olist_order_payments_dataset.csv` - Información de pagos
 - `olist_order_reviews_dataset.csv` - Reseñas de pedidos
 
-**Nota:** Coloca los archivos CSV en la carpeta `data/01_raw/` antes de ejecutar el notebook.
+**Nota:** Coloca los archivos CSV en la carpeta `mly0100parcial-kedro/data/01_raw/` antes de ejecutar el notebook.
 
 ---
 
@@ -73,30 +73,49 @@ cd MLY0100-Parcial-1
 ```bash
 python -m venv .venv
 ```
+   
+   Si tienes Python 3.11 específicamente:
+   ```bash
+   python3.11 -m venv .venv
+   ```
 
 3. **Activar entorno virtual**:
    - **Windows (PowerShell)**:
    ```powershell
    .\.venv\Scripts\Activate.ps1
    ```
+   
+   Si obtienes un error de política de ejecución:
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+   Luego intenta activar de nuevo.
+   
+   - **Windows (CMD)**:
+   ```cmd
+   .venv\Scripts\activate.bat
+   ```
+   
    - **Linux/Mac**:
    ```bash
    source .venv/bin/activate
    ```
 
-4. **En caso de error en PowerShell**, ejecutar:
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
+4. **Verifica que estás en el entorno virtual**:
+   Deberías ver `(.venv)` al inicio de tu prompt:
+   ```
+   (.venv) PS C:\Users\...>
+   ```
 
 5. **Instalar dependencias**:
 ```bash
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-6. **Instalar Jupyter** (si no está incluido):
+6. **Verificar la instalación**:
 ```bash
-pip install jupyter jupyterlab
+python -c "import pandas, numpy, matplotlib, seaborn, sklearn; print('✓ Todas las librerías instaladas correctamente')"
 ```
 
 ---
@@ -105,19 +124,39 @@ pip install jupyter jupyterlab
 
 ### Ejecutar el Notebook Principal
 
-1. **Asegúrate de tener los datasets** en `data/01_raw/`
+1. **Asegúrate de tener los datasets** en `mly0100parcial-kedro/data/01_raw/`
 
-2. **Iniciar Jupyter**:
-```bash
-jupyter notebook
-# o
-jupyter lab
-```
+2. **Asegúrate de estar en el entorno virtual activado**
 
-3. **Abrir el notebook**:
-   - `notebooks/01_EDA_Preprocesamiento_Brazilian_Ecommerce.ipynb`
+3. **Ejecutar el notebook** (elige una opción):
 
-4. **Ejecutar las celdas** en orden:
+   **Opción A: Desde VS Code / Cursor (Recomendado)**
+   - Abre el notebook `notebooks/01_EDA_Preprocesamiento_Brazilian_Ecommerce.ipynb`
+   - Selecciona el kernel: haz clic en el selector de kernel (arriba a la derecha) → "Select Another Kernel" → elige el intérprete de Python de tu entorno virtual (`.venv`)
+   - Ejecuta las celdas con `Shift + Enter`
+
+   **Opción B: Desde Jupyter Lab**
+   ```bash
+   jupyter lab
+   ```
+   - Se abrirá en tu navegador
+   - Navega al notebook y selecciona el kernel correcto (`.venv`)
+
+   **Opción C: Desde Jupyter Notebook**
+   ```bash
+   jupyter notebook
+   ```
+
+4. **Verificar que el kernel correcto está seleccionado**:
+   Ejecuta esta celda en el notebook:
+   ```python
+   import sys
+   print(f"Python: {sys.version}")
+   print(f"Ubicación: {sys.executable}")
+   ```
+   Deberías ver la ruta de `.venv`, no la de Python del sistema.
+
+5. **Ejecutar las celdas** en orden:
    - El notebook está estructurado siguiendo CRISP-DM
    - Cada sección está documentada con Markdown
    - Las celdas de código incluyen comentarios explicativos
@@ -298,11 +337,37 @@ Este proyecto sigue la metodología **CRISP-DM** (Cross-Industry Standard Proces
 
 1. **Ajustar nombres de columnas**: Los nombres de columnas en el notebook son ejemplos. Deben ajustarse según los datasets reales.
 
-2. **Cargar datasets primero**: Asegúrate de tener los archivos CSV en `data/01_raw/` antes de ejecutar.
+2. **Cargar datasets primero**: Asegúrate de tener los archivos CSV en `mly0100parcial-kedro/data/01_raw/` antes de ejecutar.
 
 3. **Revisar parámetros**: Actualiza `conf/parameters.yml` con los nombres reales de las columnas de tus datos.
 
 4. **Validar targets**: Una vez cargados los datos, verifica que los targets propuestos existan y sean adecuados.
+
+5. **Kernel correcto**: Asegúrate de seleccionar el kernel del entorno virtual (`.venv`) en el notebook.
+
+## 🔧 Solución de Problemas
+
+### Error: "No module named 'pandas'"
+- Asegúrate de estar en el entorno virtual activado
+- Ejecuta: `pip install -r requirements.txt`
+
+### Error: "Jupyter command not found"
+- Instala Jupyter: `pip install jupyter jupyterlab`
+- O instala todo: `pip install -r requirements.txt`
+
+### El kernel no aparece en la lista
+- En VS Code/Cursor, presiona `Ctrl+Shift+P`
+- Escribe "Python: Select Interpreter"
+- Selecciona el intérprete de `.venv`
+
+### Error de política de ejecución en PowerShell
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### Archivos CSV no se detectan
+- Verifica que los archivos estén en `mly0100parcial-kedro/data/01_raw/`
+- Verifica que el `.gitignore` permita los archivos CSV (debería tener `!data/01_raw/olist_*.csv`)
 
 ---
 
