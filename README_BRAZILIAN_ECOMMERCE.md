@@ -16,24 +16,6 @@ Este proyecto realiza un análisis exploratorio y preprocesamiento de datos del 
 3. **Identificación de Targets**: Definir variables objetivo para regresión y clasificación
 4. **Documentación**: Documentar todo el proceso con justificaciones técnicas
 
----
-
-## 🎯 Cobertura de la Rúbrica
-
-Este proyecto cumple con los 10 criterios de la rúbrica:
-
-1. ✅ **CRISP-DM en Jupyter Notebook** - Metodología aplicada en todas las fases
-2. ✅ **Target para Regresión** - `order_total_value` (valor total del pedido)
-3. ✅ **Target para Clasificación** - `order_status_category` o `customer_segment`
-4. ✅ **Librerías Python ML** - numpy, scikit-learn, matplotlib, seaborn
-5. ✅ **Limpieza y Preparación** - Según buenas prácticas de la industria
-6. ✅ **Documentación del Proceso** - Comparación antes/después
-7. ✅ **Tratamiento de Outliers y Missing Values** - Según naturaleza de los datos
-8. ✅ **Estadísticos de Tendencia Central y Dispersión** - Media, mediana, desviación estándar, IQR
-9. ✅ **Normalización/Estandarización** - Según distribución de los datos
-10. ✅ **Documentación con Markdown** - Justificación de cada técnica
-
----
 
 ## 📊 Dataset
 
@@ -65,7 +47,7 @@ Este proyecto cumple con los 10 criterios de la rúbrica:
 
 1. **Clonar el repositorio** (si aplica):
 ```bash
-git clone [URL_DEL_REPOSITORIO]
+git clone https://github.com/AntonioMcs/MLY0100-Parcial-1/tree/modificacion-para-brazil
 cd MLY0100-Parcial-1
 ```
 
@@ -115,7 +97,7 @@ pip install -r requirements.txt
 
 6. **Verificar la instalación**:
 ```bash
-python -c "import pandas, numpy, matplotlib, seaborn, sklearn; print('✓ Todas las librerías instaladas correctamente')"
+python -c "import pandas, numpy, matplotlib, seaborn, sklearn; print('Todas las librerías instaladas correctamente')"
 ```
 
 ---
@@ -322,7 +304,9 @@ Este proyecto sigue la metodología **CRISP-DM** (Cross-Industry Standard Proces
 5. **Evaluation** (Futuro)
 6. **Deployment** (Futuro)
 
----
+
+
+
 
 ## 📖 Referencias
 
@@ -330,51 +314,3 @@ Este proyecto sigue la metodología **CRISP-DM** (Cross-Industry Standard Proces
 - [Brazilian E-commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 - [Scikit-learn Documentation](https://scikit-learn.org/stable/)
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
-
----
-
-## ⚠️ Notas Importantes
-
-1. **Ajustar nombres de columnas**: Los nombres de columnas en el notebook son ejemplos. Deben ajustarse según los datasets reales.
-
-2. **Cargar datasets primero**: Asegúrate de tener los archivos CSV en `mly0100parcial-kedro/data/01_raw/` antes de ejecutar.
-
-3. **Revisar parámetros**: Actualiza `conf/parameters.yml` con los nombres reales de las columnas de tus datos.
-
-4. **Validar targets**: Una vez cargados los datos, verifica que los targets propuestos existan y sean adecuados.
-
-5. **Kernel correcto**: Asegúrate de seleccionar el kernel del entorno virtual (`.venv`) en el notebook.
-
-## 🔧 Solución de Problemas
-
-### Error: "No module named 'pandas'"
-- Asegúrate de estar en el entorno virtual activado
-- Ejecuta: `pip install -r requirements.txt`
-
-### Error: "Jupyter command not found"
-- Instala Jupyter: `pip install jupyter jupyterlab`
-- O instala todo: `pip install -r requirements.txt`
-
-### El kernel no aparece en la lista
-- En VS Code/Cursor, presiona `Ctrl+Shift+P`
-- Escribe "Python: Select Interpreter"
-- Selecciona el intérprete de `.venv`
-
-### Error de política de ejecución en PowerShell
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-### Archivos CSV no se detectan
-- Verifica que los archivos estén en `mly0100parcial-kedro/data/01_raw/`
-- Verifica que el `.gitignore` permita los archivos CSV (debería tener `!data/01_raw/olist_*.csv`)
-
----
-
-## 📧 Contacto
-
-Para preguntas o sugerencias sobre este proyecto, contacta al equipo.
-
----
-
-**Última actualización:** [Fecha]
