@@ -1,27 +1,18 @@
 # Requirements para Proyecto MLY0100 - Brazilian E-commerce
 # Python 3.11.9 o superior
 
-# Jupyter y Notebooks
-jupyter>=1.0.0
-jupyterlab>=3.0.0
-ipython>=8.10.0
-notebook>=6.5.0
 
-# Análisis de datos
-pandas>=2.0.0
-numpy>=1.24.0
 
-# Visualización
-matplotlib>=3.7.0
-seaborn>=0.12.0
-plotly>=5.0.0
 
-# Machine Learning y Preprocesamiento
-scikit-learn>=1.3.0
-scipy>=1.10.0
 
-# Utilidades
-joblib>=1.3.0
-openpyxl>=3.1.0  # Para leer archivos Excel
-pyyaml>=6.0  # Para leer archivos de configuración YAML
-python-dotenv>=1.0.0  # Para variables de entorno
+# Python dependencies
+pandas
+scikit-learn
+xgboost
+matplotlib
+seaborn
+imbalanced-learn
+joblib
+# Airflow dependencies
+apache-airflow==2.8.1
+psycopg2-binary
