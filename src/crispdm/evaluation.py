@@ -1,7 +1,10 @@
 
+import os
+
 def main():
     mensaje = []
     mensaje.append("Fase 5: Evaluación - Comparación de resultados y validación de objetivos")
+    os.makedirs("logs", exist_ok=True)
     # Leer logs de modelado
     try:
         with open("logs/modeling_classification.log", "r", encoding="utf-8") as f:

@@ -1,6 +1,7 @@
 
 import pandas as pd
 from pathlib import Path
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -8,6 +9,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 def main():
     mensaje = []
     mensaje.append("Fase 4: Modelado (Regresión) - Entrenamiento y evaluación")
+    os.makedirs("logs", exist_ok=True)
     data_path = Path("data/03_processed/df_prepared.csv")
     if not data_path.exists():
         mensaje.append("No existe el archivo de datos preparados para regresión.")

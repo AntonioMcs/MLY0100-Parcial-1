@@ -1,10 +1,12 @@
 
 import shutil
 from pathlib import Path
+import os
 
 def main():
     mensaje = []
     mensaje.append("Fase 6: Despliegue - Guardar modelos y resultados")
+    os.makedirs("logs", exist_ok=True)
     # Simulación de despliegue: copiar logs a carpeta de reporting
     reporting_path = Path("data/08_reporting")
     reporting_path.mkdir(parents=True, exist_ok=True)

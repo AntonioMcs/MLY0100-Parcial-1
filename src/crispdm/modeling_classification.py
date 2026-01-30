@@ -1,6 +1,7 @@
 
 import pandas as pd
 from pathlib import Path
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
@@ -8,6 +9,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 def main():
     mensaje = []
     mensaje.append("Fase 4: Modelado (Clasificación) - Entrenamiento y evaluación")
+    os.makedirs("logs", exist_ok=True)
     data_path = Path("data/03_processed/df_prepared.csv")
     if not data_path.exists():
         mensaje.append("No existe el archivo de datos preparados para clasificación.")

@@ -1,10 +1,12 @@
 
 import pandas as pd
 from pathlib import Path
+import os
 
 def main():
     mensaje = []
     mensaje.append("Fase 2: Comprensión de los datos - Exploración inicial")
+    os.makedirs("logs", exist_ok=True)
     base_path = Path("data/02_intermediate")
     files = list(base_path.glob("*.csv"))
     if not files:
